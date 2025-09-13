@@ -8,5 +8,5 @@ import (
 )
 
 func GetConfigDir() string {
-	return os.Getenv("HOME") + "/Library/Application Support"
+	return os.Getenv("HOME") + "/.config"
 }
