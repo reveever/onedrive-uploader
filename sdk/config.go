@@ -8,16 +8,17 @@ import (
 )
 
 type Config struct {
-	ConfigFilePath string    `json:"-"`
-	ClientID       string    `json:"client_id"`
-	ClientSecret   string    `json:"client_secret"`
-	Scopes         []string  `json:"scopes"`
-	RedirectURL    string    `json:"redirect_uri"`
-	Root           string    `json:"root"`
-	AccessToken    string    `json:"access_token"`
-	RefreshToken   string    `json:"refresh_token"`
-	Expiry         time.Time `json:"expiry"`
-	SecretStore    string    `json:"secret_store,omitempty"`
+	ConfigFilePath   string    `json:"-"`
+	ClientID         string    `json:"client_id"`
+	ClientSecret     string    `json:"client_secret"`
+	Scopes           []string  `json:"scopes"`
+	RedirectURL      string    `json:"redirect_uri"`
+	Root             string    `json:"root"`
+	AccessToken      string    `json:"access_token"`
+	RefreshToken     string    `json:"refresh_token"`
+	Expiry           time.Time `json:"expiry"`
+	SecretStore      string    `json:"secret_store,omitempty"`
+	CurrentDirectory string    `json:"current_directory,omitempty"`
 }
 
 func ReadConfigData(data []byte) (*Config, error) {
@@ -28,6 +29,9 @@ func ReadConfigData(data []byte) (*Config, error) {
 	config.Root = strings.TrimSuffix(config.Root, "/")
 	if !strings.HasPrefix(config.Root, "/") {
 		config.Root = "/" + config.Root
+	}
+	if config.CurrentDirectory == "" {
+		config.CurrentDirectory = "/"
 	}
 	return &config, nil
 }
